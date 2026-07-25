@@ -2,7 +2,7 @@
 <html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SUNNY | Elite Luxury Footwear</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -34,7 +34,7 @@
     </script>
     <style>
         .glass-panel {
-            background: rgba(18, 18, 20, 0.75);
+            background: rgba(18, 18, 20, 0.85);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
         }
@@ -45,56 +45,59 @@
             from { transform: translateX(100%); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
         }
-        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
         ::-webkit-scrollbar-track { background: #09090b; }
         ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 9999px; }
         ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
 
-        /* Custom Styling to fix Dim File Input Buttons */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
         input[type="file"]::file-selector-button {
             background-color: #db2777 !important;
             color: #ffffff !important;
             border: none !important;
-            padding: 6px 14px !important;
+            padding: 6px 12px !important;
             border-radius: 8px !important;
             font-weight: 700 !important;
             font-size: 11px !important;
             cursor: pointer !important;
-            margin-right: 10px !important;
+            margin-right: 8px !important;
             transition: all 0.2s ease !important;
-            opacity: 1 !important;
-        }
-        input[type="file"]::file-selector-button:hover {
-            background-color: #be185d !important;
-            transform: translateY(-1px);
         }
     </style>
 </head>
 <body class="bg-[#0a0a0c] text-zinc-100 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white">
 
     <!-- FLOATING TOAST NOTIFICATION CONTAINER -->
-    <div id="toast-container" class="fixed top-5 right-5 z-50 flex flex-col gap-3 max-w-sm w-full pointer-events-none"></div>
+    <div id="toast-container" class="fixed top-4 right-4 left-4 sm:left-auto z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none"></div>
 
     <!-- Announcement Bar -->
-    <div id="offer-banner" class="bg-gradient-to-r from-zinc-900 via-brand-900/50 to-zinc-900 border-b border-brand-500/20 text-zinc-300 text-xs py-2 px-4 text-center font-medium tracking-wide flex justify-center items-center gap-2">
-        <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span id="banner-text">EXPRESS NATIONWIDE SHIPPING: Free delivery on orders above Rs. 15,000 | Contact Founder: M. Tahir</span>
+    <div id="offer-banner" class="bg-gradient-to-r from-zinc-900 via-brand-900/50 to-zinc-900 border-b border-brand-500/20 text-zinc-300 text-[11px] sm:text-xs py-2 px-3 text-center font-medium tracking-wide flex justify-center items-center gap-2">
+        <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
+        <span id="banner-text" class="truncate sm:whitespace-normal">EXPRESS SHIPPING: Free above Rs. 15,000 | Founder: M. Tahir</span>
     </div>
 
     <!-- Header / Modern Navigation -->
     <header class="sticky top-0 z-40 glass-panel border-b border-zinc-800/60">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex justify-between items-center">
-            <!-- Brand Logo -->
-            <button onclick="switchPage('home')" class="flex items-center gap-3 text-left group">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-rose-600 flex items-center justify-center font-black text-white text-xl shadow-lg shadow-brand-500/20 group-hover:scale-105 transition-transform">S</div>
-                <div>
-                    <span class="text-xl font-black tracking-tight text-white group-hover:text-brand-400 transition-colors">SUNNY</span>
-                    <span class="block text-[9px] text-zinc-400 font-bold uppercase tracking-widest -mt-1">Luxury Footwear</span>
-                </div>
-            </button>
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 py-3 flex justify-between items-center gap-2">
+            <!-- Mobile Menu Toggle & Brand Logo -->
+            <div class="flex items-center gap-2">
+                <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden p-2 text-zinc-300 hover:text-white focus:outline-none">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+
+                <button onclick="switchPage('home')" class="flex items-center gap-2.5 text-left group">
+                    <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-brand-500 to-rose-600 flex items-center justify-center font-black text-white text-lg sm:text-xl shadow-lg shadow-brand-500/20">S</div>
+                    <div>
+                        <span class="text-lg sm:text-xl font-black tracking-tight text-white group-hover:text-brand-400 transition-colors">SUNNY</span>
+                        <span class="block text-[8px] sm:text-[9px] text-zinc-400 font-bold uppercase tracking-widest -mt-1">Luxury Footwear</span>
+                    </div>
+                </button>
+            </div>
 
             <!-- Desktop Nav -->
-            <nav class="hidden md:flex items-center gap-8 text-xs font-semibold uppercase tracking-wider text-zinc-400">
+            <nav class="hidden md:flex items-center gap-6 text-xs font-semibold uppercase tracking-wider text-zinc-400">
                 <button onclick="switchPage('home')" class="hover:text-white transition-colors">Home</button>
                 <button onclick="switchPage('shop')" class="hover:text-white transition-colors">Catalog</button>
                 <button onclick="switchPage('about')" class="hover:text-white transition-colors">Brand Story</button>
@@ -103,105 +106,115 @@
             </nav>
 
             <!-- Actions Header -->
-            <div class="flex items-center gap-3">
-                <a href="tel:03123735457" title="Direct Phone Call" class="p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white hover:border-zinc-700 transition">
+            <div class="flex items-center gap-1.5 sm:gap-2.5">
+                <a href="tel:03123735457" title="Direct Phone Call" class="p-2 sm:p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white transition">
                     <i class="fa-solid fa-phone text-xs"></i>
                 </a>
-                <a href="https://wa.me/923123735457" target="_blank" title="WhatsApp Concierge" class="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 hover:bg-emerald-500/20 transition">
+                <a href="https://wa.me/923123735457" target="_blank" title="WhatsApp Concierge" class="p-2 sm:p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 hover:bg-emerald-500/20 transition">
                     <i class="fa-brands fa-whatsapp text-sm"></i>
                 </a>
-                <button onclick="switchPage('cart')" class="relative p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white hover:border-zinc-700 transition">
+                <button onclick="switchPage('cart')" class="relative p-2 sm:p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white transition">
                     <i class="fa-solid fa-bag-shopping text-sm"></i>
-                    <span id="cart-count" class="absolute -top-1.5 -right-1.5 bg-brand-500 text-white text-[10px] font-extrabold w-4 h-4 rounded-full flex items-center justify-center">0</span>
+                    <span id="cart-count" class="absolute -top-1.5 -right-1.5 bg-brand-500 text-white text-[9px] font-extrabold w-4 h-4 rounded-full flex items-center justify-center">0</span>
                 </button>
-                <button onclick="handleAdminBtnClick()" class="px-3 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 text-xs font-bold transition flex items-center gap-1.5">
-                    <i class="fa-solid fa-lock text-[10px] text-brand-500"></i> Admin
+                <button onclick="handleAdminBtnClick()" class="px-2.5 py-2 sm:px-3 sm:py-2 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-300 text-xs font-bold transition flex items-center gap-1">
+                    <i class="fa-solid fa-lock text-[10px] text-brand-500"></i> <span class="hidden sm:inline">Admin</span>
                 </button>
             </div>
+        </div>
+
+        <!-- Mobile Drawer Navigation -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-zinc-800/80 bg-zinc-950 px-4 py-3 space-y-2 text-xs font-semibold uppercase tracking-wider text-zinc-300">
+            <button onclick="switchPage('home'); toggleMobileMenu();" class="block w-full text-left py-2 hover:text-brand-400"><i class="fa-solid fa-house mr-2 text-brand-500"></i> Home</button>
+            <button onclick="switchPage('shop'); toggleMobileMenu();" class="block w-full text-left py-2 hover:text-brand-400"><i class="fa-solid fa-store mr-2 text-brand-500"></i> Catalog</button>
+            <button onclick="switchPage('about'); toggleMobileMenu();" class="block w-full text-left py-2 hover:text-brand-400"><i class="fa-solid fa-book-open mr-2 text-brand-500"></i> Brand Story</button>
+            <button onclick="switchPage('faq'); toggleMobileMenu();" class="block w-full text-left py-2 hover:text-brand-400"><i class="fa-solid fa-circle-question mr-2 text-brand-500"></i> Support & FAQ</button>
+            <button onclick="switchPage('contact'); toggleMobileMenu();" class="block w-full text-left py-2 hover:text-brand-400"><i class="fa-solid fa-headset mr-2 text-brand-500"></i> Contact</button>
         </div>
     </header>
 
     <!-- MAIN WRAPPER -->
-    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-8">
+    <main class="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 py-6 sm:py-8">
 
         <!-- PAGE 1: HOME -->
-        <section id="page-home" class="page-view space-y-16">
+        <section id="page-home" class="page-view space-y-10 sm:space-y-16">
             <!-- Hero Banner -->
-            <div class="relative rounded-3xl overflow-hidden bg-gradient-to-r from-zinc-950 via-zinc-900 to-zinc-950 border border-zinc-800/80 p-8 sm:p-16 flex flex-col lg:flex-row items-center justify-between gap-12 shadow-2xl">
-                <div class="max-w-xl space-y-6">
-                    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-400 text-[11px] font-bold uppercase tracking-wider">
+            <div class="relative rounded-3xl overflow-hidden bg-gradient-to-r from-zinc-950 via-zinc-900 to-zinc-950 border border-zinc-800/80 p-6 sm:p-12 lg:p-16 flex flex-col lg:flex-row items-center justify-between gap-8 sm:gap-12 shadow-2xl">
+                <div class="max-w-xl space-y-4 sm:space-y-6 text-center lg:text-left">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-400 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider">
                         <i class="fa-solid fa-shield-check text-xs"></i> Official Direct Store
                     </span>
-                    <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight">Elevate Your <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 via-rose-400 to-pink-500">Everyday Movement.</span></h1>
-                    <p class="text-zinc-400 text-sm sm:text-base leading-relaxed">Handpicked premium sneakers, athletic runners, and luxury leather silhouettes directly verified by Muhammad Tahir.</p>
-                    <div class="flex flex-wrap gap-4 pt-2">
-                        <button onclick="switchPage('shop')" class="px-7 py-3.5 rounded-xl bg-gradient-to-r from-brand-500 to-rose-600 hover:brightness-110 text-white font-bold text-sm shadow-xl shadow-brand-500/20 transition-transform active:scale-95">Explore Catalog</button>
-                        <a href="https://wa.me/923123735457" target="_blank" class="px-6 py-3.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 font-semibold text-sm flex items-center gap-2 transition">
+                    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight">Elevate Your <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 via-rose-400 to-pink-500">Everyday Movement.</span></h1>
+                    <p class="text-zinc-400 text-xs sm:text-base leading-relaxed">Handpicked premium sneakers, athletic runners, and luxury leather silhouettes directly verified by Muhammad Tahir.</p>
+                    <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-3 pt-2">
+                        <button onclick="switchPage('shop')" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-gradient-to-r from-brand-500 to-rose-600 hover:brightness-110 text-white font-bold text-xs sm:text-sm shadow-xl shadow-brand-500/20 active:scale-95 transition">Explore Catalog</button>
+                        <a href="https://wa.me/923123735457" target="_blank" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 transition">
                             <i class="fa-brands fa-whatsapp text-emerald-400"></i> WhatsApp Concierge
                         </a>
                     </div>
                 </div>
                 <div class="relative w-full lg:w-1/2 flex justify-center">
-                    <div class="absolute w-72 h-72 bg-brand-500/10 rounded-full blur-3xl"></div>
-                    <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=800&q=80" class="relative z-10 w-full max-w-sm object-contain transform -rotate-12 hover:rotate-0 transition duration-700 cursor-pointer filter drop-shadow-[0_20px_30px_rgba(236,72,153,0.25)]" onclick="openProductModal(101)">
+                    <div class="absolute w-48 h-48 sm:w-72 sm:h-72 bg-brand-500/10 rounded-full blur-3xl"></div>
+                    <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=800&q=80" class="relative z-10 w-full max-w-xs sm:max-w-sm object-contain transform -rotate-12 hover:rotate-0 transition duration-700 cursor-pointer filter drop-shadow-[0_20px_30px_rgba(236,72,153,0.25)]" onclick="openProductModal(101)">
                 </div>
             </div>
 
             <!-- Features Row -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="p-6 rounded-2xl bg-zinc-900/60 border border-zinc-800/80 flex items-center gap-4">
-                    <div class="w-12 h-12 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center text-lg"><i class="fa-solid fa-truck-fast"></i></div>
-                    <div><h4 class="font-bold text-white text-sm">Express Dispatch</h4><p class="text-xs text-zinc-400">2-4 business days delivery nationwide</p></div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+                <div class="p-5 rounded-2xl bg-zinc-900/60 border border-zinc-800/80 flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center text-base shrink-0"><i class="fa-solid fa-truck-fast"></i></div>
+                    <div><h4 class="font-bold text-white text-xs sm:text-sm">Express Dispatch</h4><p class="text-[11px] text-zinc-400">2-4 business days delivery nationwide</p></div>
                 </div>
-                <div class="p-6 rounded-2xl bg-zinc-900/60 border border-zinc-800/80 flex items-center gap-4">
-                    <div class="w-12 h-12 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center text-lg"><i class="fa-solid fa-badge-check"></i></div>
-                    <div><h4 class="font-bold text-white text-sm">Verified Authenticity</h4><p class="text-xs text-zinc-400">Strict Quality Assurance check</p></div>
+                <div class="p-5 rounded-2xl bg-zinc-900/60 border border-zinc-800/80 flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center text-base shrink-0"><i class="fa-solid fa-badge-check"></i></div>
+                    <div><h4 class="font-bold text-white text-xs sm:text-sm">Verified Authenticity</h4><p class="text-[11px] text-zinc-400">Strict Quality Assurance check</p></div>
                 </div>
-                <div class="p-6 rounded-2xl bg-zinc-900/60 border border-zinc-800/80 flex items-center gap-4">
-                    <div class="w-12 h-12 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center text-lg"><i class="fa-solid fa-headset"></i></div>
-                    <div><h4 class="font-bold text-white text-sm">Founder Assistance</h4><p class="text-xs text-zinc-400">Direct query support with M. Tahir</p></div>
+                <div class="p-5 rounded-2xl bg-zinc-900/60 border border-zinc-800/80 flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center text-base shrink-0"><i class="fa-solid fa-headset"></i></div>
+                    <div><h4 class="font-bold text-white text-xs sm:text-sm">Founder Assistance</h4><p class="text-[11px] text-zinc-400">Direct query support with M. Tahir</p></div>
                 </div>
             </div>
 
             <!-- Featured Section -->
             <div class="space-y-6">
-                <div class="flex justify-between items-end border-b border-zinc-800/60 pb-4">
+                <div class="flex justify-between items-end border-b border-zinc-800/60 pb-3">
                     <div>
-                        <h2 class="text-xl font-bold text-white tracking-tight">Featured Drop</h2>
-                        <p class="text-xs text-zinc-400">Most requested releases in store</p>
+                        <h2 class="text-lg sm:text-xl font-bold text-white tracking-tight">Featured Drop</h2>
+                        <p class="text-[11px] text-zinc-400">Most requested releases in store</p>
                     </div>
-                    <button onclick="switchPage('shop')" class="text-xs font-bold text-brand-400 hover:underline">View All Drop <i class="fa-solid fa-arrow-right text-[10px]"></i></button>
+                    <button onclick="switchPage('shop')" class="text-xs font-bold text-brand-400 hover:underline">View All <i class="fa-solid fa-arrow-right text-[10px]"></i></button>
                 </div>
-                <div id="home-featured-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+                <div id="home-featured-grid" class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6"></div>
             </div>
         </section>
 
         <!-- PAGE 2: CATALOG / SHOP -->
-        <section id="page-shop" class="page-view hidden space-y-8">
-            <div class="flex flex-col md:flex-row gap-4 justify-between items-center bg-zinc-900/80 border border-zinc-800/80 p-4 rounded-2xl">
+        <section id="page-shop" class="page-view hidden space-y-6">
+            <div class="flex flex-col md:flex-row gap-3 justify-between items-center bg-zinc-900/80 border border-zinc-800/80 p-3.5 sm:p-4 rounded-2xl">
                 <div class="relative w-full md:w-80">
                     <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-zinc-500 text-xs"></i>
                     <input type="text" id="shop-search" oninput="filterProducts()" placeholder="Search model or category..." class="w-full pl-9 pr-4 py-2 bg-zinc-950 border border-zinc-800 rounded-xl text-xs focus:outline-none focus:border-brand-500 text-zinc-200">
                 </div>
-                <div id="category-buttons-container" class="flex flex-wrap gap-2 w-full md:w-auto"></div>
+                <!-- Horizontal Scrollable Category Bar for Mobile -->
+                <div id="category-buttons-container" class="flex items-center gap-2 w-full md:w-auto overflow-x-auto no-scrollbar py-1"></div>
             </div>
 
-            <div id="shop-shoes-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+            <div id="shop-shoes-grid" class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6"></div>
         </section>
 
         <!-- PAGE 3: SHOPPING BAG & CHECKOUT -->
-        <section id="page-cart" class="page-view hidden space-y-8">
-            <h2 class="text-2xl font-bold text-white flex items-center gap-3"><i class="fa-solid fa-bag-shopping text-brand-500"></i> Shopping Bag & Checkout</h2>
+        <section id="page-cart" class="page-view hidden space-y-6 sm:space-y-8">
+            <h2 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2.5"><i class="fa-solid fa-bag-shopping text-brand-500"></i> Shopping Bag & Checkout</h2>
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <div class="lg:col-span-2 space-y-4" id="cart-items-container"></div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
+                <div class="lg:col-span-2 space-y-3" id="cart-items-container"></div>
 
-                <div class="bg-zinc-900/90 border border-zinc-800/80 p-6 rounded-2xl h-fit space-y-6">
-                    <h3 class="text-base font-bold text-white border-b border-zinc-800 pb-3">Order Summary</h3>
-                    <div class="space-y-3 text-xs">
+                <div class="bg-zinc-900/90 border border-zinc-800/80 p-5 sm:p-6 rounded-2xl h-fit space-y-5">
+                    <h3 class="text-sm sm:text-base font-bold text-white border-b border-zinc-800 pb-3">Order Summary</h3>
+                    <div class="space-y-2.5 text-xs">
                         <div class="flex justify-between text-zinc-400"><span>Subtotal</span><span id="cart-subtotal" class="font-mono text-zinc-200">Rs. 0</span></div>
                         <div class="flex justify-between text-zinc-400"><span>Delivery Fee</span><span id="cart-delivery" class="text-emerald-400 font-semibold">Rs. 0</span></div>
-                        <div class="flex justify-between text-white font-bold text-sm pt-3 border-t border-zinc-800"><span>Grand Total</span><span id="cart-total" class="text-brand-400 font-mono">Rs. 0</span></div>
+                        <div class="flex justify-between text-white font-bold text-sm pt-2.5 border-t border-zinc-800"><span>Grand Total</span><span id="cart-total" class="text-brand-400 font-mono">Rs. 0</span></div>
                     </div>
 
                     <form id="checkout-form" onsubmit="processOrder(event)" class="space-y-3 pt-2">
@@ -219,23 +232,23 @@
         </section>
 
         <!-- PAGE 4: FAQ & SUPPORT -->
-        <section id="page-faq" class="page-view hidden space-y-8 max-w-3xl mx-auto">
-            <div class="text-center space-y-2">
+        <section id="page-faq" class="page-view hidden space-y-6 max-w-3xl mx-auto">
+            <div class="text-center space-y-1.5">
                 <span class="text-brand-400 font-bold text-[10px] uppercase tracking-widest">Support Center</span>
-                <h2 class="text-3xl font-extrabold text-white">Frequently Asked Questions</h2>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Frequently Asked Questions</h2>
             </div>
 
-            <div class="bg-gradient-to-r from-zinc-900 via-brand-950/20 to-zinc-900 border border-brand-500/30 p-6 rounded-3xl space-y-4 shadow-xl">
+            <div class="bg-gradient-to-r from-zinc-900 via-brand-950/20 to-zinc-900 border border-brand-500/30 p-5 sm:p-6 rounded-3xl space-y-4 shadow-xl">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-base"><i class="fa-brands fa-whatsapp"></i></div>
+                    <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-base shrink-0"><i class="fa-brands fa-whatsapp"></i></div>
                     <div>
-                        <h3 class="font-bold text-white text-sm">Direct WhatsApp Live Support</h3>
-                        <p class="text-xs text-zinc-400">Ask any question below to chat directly with Muhammad Tahir</p>
+                        <h3 class="font-bold text-white text-xs sm:text-sm">Direct WhatsApp Live Support</h3>
+                        <p class="text-[11px] text-zinc-400">Ask any question to chat directly with Muhammad Tahir</p>
                     </div>
                 </div>
-                <form onsubmit="handleFaqChatSubmit(event)" class="flex gap-2">
-                    <input type="text" id="faq-chat-input" required placeholder="e.g. Do you have size 43 in Nike Jordan Pink?" class="flex-1 bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-xs focus:outline-none focus:border-brand-500 text-white">
-                    <button type="submit" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-6 py-3 rounded-xl transition text-xs flex items-center gap-2">
+                <form onsubmit="handleFaqChatSubmit(event)" class="flex flex-col sm:flex-row gap-2">
+                    <input type="text" id="faq-chat-input" required placeholder="e.g. Do you have size 43 in Jordan Pink?" class="flex-1 bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-xs focus:outline-none focus:border-brand-500 text-white">
+                    <button type="submit" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-6 py-3 rounded-xl transition text-xs flex items-center justify-center gap-2">
                         <span>Send</span> <i class="fa-solid fa-paper-plane text-[10px]"></i>
                     </button>
                 </form>
@@ -243,48 +256,48 @@
         </section>
 
         <!-- PAGE 5: ABOUT -->
-        <section id="page-about" class="page-view hidden space-y-8 max-w-3xl mx-auto text-center">
+        <section id="page-about" class="page-view hidden space-y-6 max-w-3xl mx-auto text-center px-2">
             <span class="text-brand-400 font-bold text-[10px] uppercase tracking-widest">Brand Heritage</span>
-            <h2 class="text-3xl font-extrabold text-white">SUNNY Luxury Footwear</h2>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white">SUNNY Luxury Footwear</h2>
             <p class="text-zinc-400 text-xs sm:text-sm leading-relaxed">Founded by **Muhammad Tahir**, SUNNY Footwear delivers high-performance running models, retro sneakers, and luxury footwear throughout Pakistan with 100% quality inspection prior to dispatch.</p>
         </section>
 
         <!-- PAGE 6: CONTACT -->
-        <section id="page-contact" class="page-view hidden space-y-8 max-w-2xl mx-auto">
-            <div class="text-center space-y-2">
+        <section id="page-contact" class="page-view hidden space-y-6 max-w-2xl mx-auto">
+            <div class="text-center space-y-1.5">
                 <span class="text-brand-400 font-bold text-[10px] uppercase tracking-widest">Reach Out</span>
-                <h2 class="text-3xl font-extrabold text-white">Contact Founder</h2>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Contact Founder</h2>
             </div>
 
-            <div class="p-8 rounded-3xl bg-zinc-900 border border-zinc-800 text-center space-y-6">
-                <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-tr from-brand-500 to-rose-600 flex items-center justify-center font-black text-2xl text-white shadow-xl shadow-brand-500/20">MT</div>
+            <div class="p-6 sm:p-8 rounded-3xl bg-zinc-900 border border-zinc-800 text-center space-y-5">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full bg-gradient-to-tr from-brand-500 to-rose-600 flex items-center justify-center font-black text-xl sm:text-2xl text-white shadow-xl shadow-brand-500/20">MT</div>
                 <div>
-                    <h3 class="text-xl font-bold text-white">Muhammad Tahir</h3>
+                    <h3 class="text-lg sm:text-xl font-bold text-white">Muhammad Tahir</h3>
                     <p class="text-xs text-brand-400 font-semibold">Store Owner & Founder</p>
                 </div>
-                <div class="flex justify-center gap-4 text-xs font-bold">
-                    <a href="tel:03123735457" class="px-5 py-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white transition flex items-center gap-2"><i class="fa-solid fa-phone"></i> 03123735457</a>
-                    <a href="https://wa.me/923123735457" target="_blank" class="px-5 py-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20 transition flex items-center gap-2"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+                <div class="flex flex-col sm:flex-row justify-center gap-3 text-xs font-bold">
+                    <a href="tel:03123735457" class="px-5 py-3 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white transition flex items-center justify-center gap-2"><i class="fa-solid fa-phone"></i> 03123735457</a>
+                    <a href="https://wa.me/923123735457" target="_blank" class="px-5 py-3 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20 transition flex items-center justify-center gap-2"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
                 </div>
             </div>
         </section>
     </main>
 
     <!-- PRODUCT DETAIL MODAL -->
-    <div id="product-detail-modal" class="fixed inset-0 bg-zinc-950/90 backdrop-blur-xl z-50 hidden flex items-center justify-center p-3 sm:p-6">
-        <div class="bg-[#121215] border border-zinc-800 rounded-3xl max-w-5xl w-full max-h-[92vh] overflow-y-auto p-6 sm:p-8 space-y-8 shadow-2xl relative">
-            <button onclick="closeProductModal()" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-zinc-900 text-zinc-400 hover:text-white flex items-center justify-center border border-zinc-800 transition z-10"><i class="fa-solid fa-xmark"></i></button>
+    <div id="product-detail-modal" class="fixed inset-0 bg-zinc-950/90 backdrop-blur-xl z-50 hidden flex items-center justify-center p-2 sm:p-6">
+        <div class="bg-[#121215] border border-zinc-800 rounded-3xl max-w-5xl w-full max-h-[92vh] overflow-y-auto p-4 sm:p-8 space-y-6 shadow-2xl relative">
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-zinc-900 text-zinc-400 hover:text-white flex items-center justify-center border border-zinc-800 transition z-10"><i class="fa-solid fa-xmark"></i></button>
             <div id="product-detail-content"></div>
         </div>
     </div>
 
     <!-- ADMIN LOGIN MODAL -->
     <div id="admin-login-modal" class="fixed inset-0 bg-zinc-950/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-zinc-900 border border-zinc-800 p-8 rounded-3xl max-w-sm w-full space-y-6 shadow-2xl">
+        <div class="bg-zinc-900 border border-zinc-800 p-6 sm:p-8 rounded-3xl max-w-sm w-full space-y-5 shadow-2xl">
             <div class="text-center space-y-2">
                 <div class="w-12 h-12 mx-auto rounded-2xl bg-brand-500/10 text-brand-400 flex items-center justify-center text-xl"><i class="fa-solid fa-lock"></i></div>
-                <h3 class="text-lg font-bold text-white">Admin Authentication</h3>
-                <p class="text-xs text-zinc-400">Default Password: M.Tahir123</p>
+                <h3 class="text-base sm:text-lg font-bold text-white">Admin Authentication</h3>
+                <p class="text-[11px] text-zinc-400">Default Password: M.Tahir123</p>
             </div>
             <form onsubmit="verifyAdminPassword(event)" class="space-y-4">
                 <input type="password" id="admin-pass-input" placeholder="Password" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-xs text-center font-mono focus:outline-none focus:border-brand-500 text-white">
@@ -296,21 +309,21 @@
     </div>
 
     <!-- ADMIN DASHBOARD MODAL -->
-    <div id="admin-dashboard-modal" class="fixed inset-0 bg-zinc-950/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-zinc-900 border border-zinc-800 rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 space-y-8 shadow-2xl">
-            <div class="flex justify-between items-center border-b border-zinc-800 pb-4">
+    <div id="admin-dashboard-modal" class="fixed inset-0 bg-zinc-950/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-2 sm:p-4">
+        <div class="bg-zinc-900 border border-zinc-800 rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto p-4 sm:p-8 space-y-6 shadow-2xl">
+            <div class="flex justify-between items-center border-b border-zinc-800 pb-3">
                 <div>
-                    <h3 class="text-xl font-bold text-brand-400 flex items-center gap-2"><i class="fa-solid fa-sliders"></i> Admin Management Control</h3>
-                    <p class="text-xs text-zinc-400">Persistent Seller Control Panel</p>
+                    <h3 class="text-base sm:text-xl font-bold text-brand-400 flex items-center gap-2"><i class="fa-solid fa-sliders"></i> Admin Control Panel</h3>
+                    <p class="text-[10px] sm:text-xs text-zinc-400">Persistent Seller Control</p>
                 </div>
-                <div class="flex items-center gap-3">
-                    <button onclick="adminLogout()" class="bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
-                    <button onclick="closeAdminDashboard()" class="text-zinc-400 hover:text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
+                <div class="flex items-center gap-2">
+                    <button onclick="adminLogout()" class="bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+                    <button onclick="closeAdminDashboard()" class="text-zinc-400 hover:text-white text-lg ml-2"><i class="fa-solid fa-xmark"></i></button>
                 </div>
             </div>
 
             <!-- Manage Categories -->
-            <div class="bg-zinc-950/80 border border-zinc-800 p-5 rounded-2xl space-y-3">
+            <div class="bg-zinc-950/80 border border-zinc-800 p-4 rounded-2xl space-y-3">
                 <h4 class="font-bold text-brand-400 text-xs uppercase tracking-wider"><i class="fa-solid fa-tags"></i> Categories Control</h4>
                 <form onsubmit="handleCategoryAdd(event)" class="flex gap-2">
                     <input type="text" id="new-cat-input" required placeholder="New category..." class="flex-1 bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-brand-500 text-white">
@@ -320,7 +333,7 @@
             </div>
 
             <!-- Product Form -->
-            <form id="shoe-form" onsubmit="handleFormSubmit(event)" class="bg-zinc-950/80 border border-zinc-800 p-5 rounded-2xl space-y-4">
+            <form id="shoe-form" onsubmit="handleFormSubmit(event)" class="bg-zinc-950/80 border border-zinc-800 p-4 rounded-2xl space-y-4">
                 <div class="flex justify-between items-center">
                     <h4 id="form-title" class="font-bold text-white text-xs uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-plus text-brand-400"></i> Add New Product Model</h4>
                     <button type="button" id="cancel-edit-btn" onclick="resetForm()" class="hidden text-xs text-rose-400 font-bold">Cancel Edit</button>
@@ -328,7 +341,7 @@
 
                 <input type="hidden" id="edit-shoe-id" value="">
 
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <div>
                         <label class="text-[10px] text-zinc-400 uppercase font-bold">Shoe Title:</label>
                         <input type="text" id="form-name" required placeholder="Nike Air Jordan 1" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-brand-500 text-white mt-1">
@@ -345,7 +358,7 @@
 
                 <div>
                     <label class="text-[10px] text-zinc-400 uppercase font-bold">Key Features (Comma Separated):</label>
-                    <input type="text" id="form-features" placeholder="Pure Genuine Leather, Air Cushion Sole, Breathable Mesh, Anti-Slip Base" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-brand-500 text-white mt-1">
+                    <input type="text" id="form-features" placeholder="Pure Genuine Leather, Air Cushion Sole, Breathable Mesh" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-brand-500 text-white mt-1">
                 </div>
 
                 <div>
@@ -354,8 +367,8 @@
                 </div>
 
                 <!-- Multi Images Upload Section -->
-                <div class="p-4 bg-zinc-900/90 border border-zinc-800 rounded-2xl space-y-3">
-                    <label class="text-xs font-bold text-brand-400 uppercase flex items-center gap-2"><i class="fa-solid fa-images"></i> Add Product Images (Multiple Allowed):</label>
+                <div class="p-3.5 bg-zinc-900/90 border border-zinc-800 rounded-2xl space-y-3">
+                    <label class="text-xs font-bold text-brand-400 uppercase flex items-center gap-2"><i class="fa-solid fa-images"></i> Add Product Images:</label>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
                             <span class="text-[10px] text-zinc-400 font-bold block mb-1">Local Files Upload:</span>
@@ -366,13 +379,13 @@
                             <input type="text" id="form-urls" placeholder="https://img1.jpg, https://img2.jpg" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-brand-500 text-white">
                         </div>
                     </div>
-                    <div id="staged-images-preview" class="flex flex-wrap gap-2 pt-2"></div>
+                    <div id="staged-images-preview" class="flex flex-wrap gap-2 pt-1"></div>
                 </div>
 
                 <!-- Multi Videos Section -->
-                <div class="p-4 bg-zinc-900/90 border border-zinc-800 rounded-2xl space-y-3">
-                    <label class="text-xs font-bold text-rose-400 uppercase flex items-center gap-2"><i class="fa-brands fa-youtube"></i> Add YouTube Product Video URLs (Comma Separated):</label>
-                    <input type="text" id="form-video-urls" placeholder="https://youtube.com/watch?v=xyz123, https://youtu.be/abc456" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-brand-500 text-white">
+                <div class="p-3.5 bg-zinc-900/90 border border-zinc-800 rounded-2xl space-y-2">
+                    <label class="text-xs font-bold text-rose-400 uppercase flex items-center gap-2"><i class="fa-brands fa-youtube"></i> YouTube Video URLs (Comma Separated):</label>
+                    <input type="text" id="form-video-urls" placeholder="https://youtube.com/watch?v=xyz123" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-brand-500 text-white">
                 </div>
 
                 <button type="submit" id="form-submit-btn" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-3 rounded-xl transition text-xs shadow-lg shadow-brand-500/20">Publish Shoe Model</button>
@@ -380,18 +393,18 @@
 
             <div class="space-y-3">
                 <h4 class="font-bold text-white text-xs uppercase tracking-wider">Product Inventory</h4>
-                <div id="admin-inventory-list" class="space-y-2 max-h-52 overflow-y-auto pr-2"></div>
+                <div id="admin-inventory-list" class="space-y-2 max-h-52 overflow-y-auto pr-1"></div>
             </div>
         </div>
     </div>
 
     <!-- Footer -->
-    <footer class="border-t border-zinc-800/80 bg-zinc-950 py-8 mt-16">
-        <div class="max-w-7xl mx-auto px-4 text-center sm:flex sm:justify-between sm:items-center text-xs text-zinc-500 space-y-4 sm:space-y-0">
+    <footer class="border-t border-zinc-800/80 bg-zinc-950 py-6 sm:py-8 mt-12 sm:mt-16">
+        <div class="max-w-7xl mx-auto px-4 text-center sm:flex sm:justify-between sm:items-center text-xs text-zinc-500 space-y-3 sm:space-y-0">
             <div>
                 <span class="font-bold text-white tracking-wider">SUNNY FOOTWEAR</span> &copy; 2026. Founder: <span class="text-brand-400 font-semibold">Muhammad Tahir</span>
             </div>
-            <div class="flex justify-center gap-6 text-[11px]">
+            <div class="flex justify-center gap-4 text-[11px]">
                 <a href="tel:03123735457" class="hover:text-brand-400 transition">Phone: 03123735457</a>
                 <a href="https://wa.me/923123735457" class="hover:text-brand-400 transition">WhatsApp Concierge</a>
             </div>
@@ -477,17 +490,22 @@
             updateCartBadge();
         }
 
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
         function showToast(message, type = 'success') {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
             
             const icon = type === 'success' ? 'fa-circle-check text-emerald-400' : 'fa-circle-info text-brand-400';
             
-            toast.className = `toast-slide glass-panel border border-zinc-800 p-4 rounded-2xl shadow-2xl flex items-center gap-3 text-xs font-semibold text-white pointer-events-auto`;
+            toast.className = `toast-slide glass-panel border border-zinc-800 p-3.5 rounded-2xl shadow-2xl flex items-center gap-3 text-xs font-semibold text-white pointer-events-auto`;
             toast.innerHTML = `
-                <i class="fa-solid ${icon} text-base"></i>
+                <i class="fa-solid ${icon} text-base shrink-0"></i>
                 <span class="flex-1">${message}</span>
-                <button onclick="this.parentElement.remove()" class="text-zinc-500 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+                <button onclick="this.parentElement.remove()" class="text-zinc-500 hover:text-white p-1"><i class="fa-solid fa-xmark"></i></button>
             `;
 
             container.appendChild(toast);
@@ -507,11 +525,11 @@
 
         function renderCategoryFilterButtons() {
             const container = document.getElementById('category-buttons-container');
-            let html = `<button onclick="setCategoryFilter('All')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold ${state.currentFilter === 'All' ? 'bg-brand-500 text-white shadow-lg shadow-brand-500/20' : 'bg-zinc-800/80 text-zinc-400 hover:text-white'}">All Models</button>`;
+            let html = `<button onclick="setCategoryFilter('All')" class="shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-bold ${state.currentFilter === 'All' ? 'bg-brand-500 text-white shadow-lg shadow-brand-500/20' : 'bg-zinc-800/80 text-zinc-400 hover:text-white'}">All Models</button>`;
             
             state.categories.forEach(cat => {
                 const active = state.currentFilter.toLowerCase() === cat.toLowerCase();
-                html += `<button onclick="setCategoryFilter('${cat}')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold ${active ? 'bg-brand-500 text-white shadow-lg shadow-brand-500/20' : 'bg-zinc-800/80 text-zinc-400 hover:text-white'}">${cat}</button>`;
+                html += `<button onclick="setCategoryFilter('${cat}')" class="shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-bold ${active ? 'bg-brand-500 text-white shadow-lg shadow-brand-500/20' : 'bg-zinc-800/80 text-zinc-400 hover:text-white'}">${cat}</button>`;
             });
             container.innerHTML = html;
         }
@@ -547,9 +565,9 @@
         function renderAdminCategoriesTags() {
             const container = document.getElementById('admin-categories-tags');
             container.innerHTML = state.categories.map(c => `
-                <span class="inline-flex items-center gap-2 bg-zinc-900 border border-zinc-800 text-brand-400 font-bold px-3 py-1 rounded-xl text-xs">
+                <span class="inline-flex items-center gap-1.5 bg-zinc-900 border border-zinc-800 text-brand-400 font-bold px-2.5 py-1 rounded-xl text-xs">
                     ${c}
-                    <button onclick="deleteCategory('${c}')" class="text-rose-400 hover:text-rose-300"><i class="fa-solid fa-xmark"></i></button>
+                    <button onclick="deleteCategory('${c}')" class="text-rose-400 hover:text-rose-300 ml-1"><i class="fa-solid fa-xmark"></i></button>
                 </span>
             `).join('');
         }
@@ -583,20 +601,20 @@
             const mainImg = (shoe.images && shoe.images.length > 0) ? shoe.images[0] : shoe.image;
             return `
                 <div class="bg-zinc-900/70 border border-zinc-800/80 rounded-2xl overflow-hidden hover:border-brand-500/40 transition-all duration-300 group flex flex-col justify-between shadow-lg">
-                    <div onclick="openProductModal(${shoe.id})" class="relative h-56 bg-zinc-950 overflow-hidden cursor-pointer">
+                    <div onclick="openProductModal(${shoe.id})" class="relative h-40 sm:h-56 bg-zinc-950 overflow-hidden cursor-pointer">
                         <img src="${mainImg}" alt="${shoe.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                        <span class="absolute top-3 right-3 bg-zinc-950/80 backdrop-blur-md text-brand-400 text-[10px] px-2.5 py-1 rounded-full font-bold border border-brand-500/20">${shoe.category}</span>
+                        <span class="absolute top-2 right-2 sm:top-3 sm:right-3 bg-zinc-950/80 backdrop-blur-md text-brand-400 text-[9px] sm:text-[10px] px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full font-bold border border-brand-500/20">${shoe.category}</span>
                     </div>
-                    <div class="p-4 flex-1 flex flex-col justify-between space-y-4">
+                    <div class="p-3 sm:p-4 flex-1 flex flex-col justify-between space-y-3">
                         <div onclick="openProductModal(${shoe.id})" class="cursor-pointer">
-                            <h4 class="font-bold text-white text-sm group-hover:text-brand-400 transition-colors line-clamp-1">${shoe.name}</h4>
-                            <p class="text-brand-400 font-extrabold text-base mt-1">Rs. ${shoe.price.toLocaleString()}</p>
+                            <h4 class="font-bold text-white text-xs sm:text-sm group-hover:text-brand-400 transition-colors line-clamp-1">${shoe.name}</h4>
+                            <p class="text-brand-400 font-extrabold text-sm sm:text-base mt-0.5">Rs. ${shoe.price.toLocaleString()}</p>
                         </div>
-                        <div class="grid grid-cols-2 gap-2">
-                            <button onclick="addToCart(${shoe.id})" class="bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-bold py-2 rounded-xl transition text-xs flex items-center justify-center gap-1">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 sm:gap-2">
+                            <button onclick="addToCart(${shoe.id})" class="bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-bold py-1.5 sm:py-2 rounded-xl transition text-[11px] sm:text-xs flex items-center justify-center gap-1">
                                 <i class="fa-solid fa-cart-plus"></i> Cart
                             </button>
-                            <button onclick="directBuyNow(${shoe.id})" class="bg-gradient-to-r from-brand-500 to-rose-600 hover:brightness-110 text-white font-bold py-2 rounded-xl transition text-xs flex items-center justify-center gap-1 shadow-md shadow-brand-500/20">
+                            <button onclick="directBuyNow(${shoe.id})" class="bg-gradient-to-r from-brand-500 to-rose-600 hover:brightness-110 text-white font-bold py-1.5 sm:py-2 rounded-xl transition text-[11px] sm:text-xs flex items-center justify-center gap-1 shadow-md shadow-brand-500/20">
                                 <i class="fa-solid fa-bolt"></i> Buy Now
                             </button>
                         </div>
@@ -619,44 +637,42 @@
                 if (rev.video) {
                     const match = rev.video.match(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/);
                     if (match && match[2].length === 11) {
-                        videoEmbed = `<div class="mt-2 rounded-xl overflow-hidden"><iframe class="w-full h-40" src="https://www.youtube.com/embed/${match[2]}" frameborder="0" allowfullscreen></iframe></div>`;
+                        videoEmbed = `<div class="mt-2 rounded-xl overflow-hidden"><iframe class="w-full h-36 sm:h-40" src="https://www.youtube.com/embed/${match[2]}" frameborder="0" allowfullscreen></iframe></div>`;
                     }
                 }
 
                 return `
-                    <div class="bg-zinc-950 border border-zinc-800 p-4 rounded-2xl space-y-2 relative">
+                    <div class="bg-zinc-950 border border-zinc-800 p-3.5 rounded-2xl space-y-2 relative">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-2">
-                                <div class="w-7 h-7 rounded-full bg-brand-500/20 text-brand-400 text-xs font-bold flex items-center justify-center">${rev.name.charAt(0)}</div>
+                                <div class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-400 text-xs font-bold flex items-center justify-center">${rev.name.charAt(0)}</div>
                                 <span class="font-bold text-white text-xs">${rev.name}</span>
                             </div>
                             <span class="text-amber-400 text-xs">${'⭐'.repeat(rev.rating)}</span>
                         </div>
                         <p class="text-xs text-zinc-300">${rev.comment}</p>
-                        ${rev.photo ? `<img src="${rev.photo}" class="w-24 h-24 object-cover rounded-xl border border-zinc-800 mt-2">` : ''}
+                        ${rev.photo ? `<img src="${rev.photo}" class="w-20 h-20 sm:w-24 sm:h-24 object-cover rounded-xl border border-zinc-800 mt-2">` : ''}
                         ${videoEmbed}
                     </div>
                 `;
             }).join('');
 
             if (reviewsList.length === 0) {
-                reviewsHTML = `<p class="text-xs text-zinc-500 italic">No reviews yet for this model. Be the first to add customer feedback!</p>`;
+                reviewsHTML = `<p class="text-xs text-zinc-500 italic">No reviews yet for this model.</p>`;
             }
 
-            // Generate Gallery Thumbnails
-            const galleryThumbnailsHTML = imagesList.map((img, idx) => `
-                <button onclick="setModalMainImage('${img}')" class="w-16 h-16 rounded-xl overflow-hidden border border-zinc-800 hover:border-brand-500 focus:border-brand-500 transition">
+            const galleryThumbnailsHTML = imagesList.map((img) => `
+                <button onclick="setModalMainImage('${img}')" class="w-14 h-14 sm:w-16 sm:h-16 shrink-0 rounded-xl overflow-hidden border border-zinc-800 hover:border-brand-500 focus:border-brand-500 transition">
                     <img src="${img}" class="w-full h-full object-cover">
                 </button>
             `).join('');
 
-            // Features Badges
             const featuresHTML = featuresList.length > 0 ? `
                 <div class="space-y-2">
                     <h4 class="text-xs font-bold text-zinc-400 uppercase">Key Specifications & Features:</h4>
-                    <div class="flex flex-wrap gap-2">
+                    <div class="flex flex-wrap gap-1.5 sm:gap-2">
                         ${featuresList.map(f => `
-                            <span class="bg-zinc-900 border border-zinc-800 text-brand-400 px-3 py-1 rounded-xl text-xs font-semibold flex items-center gap-1.5">
+                            <span class="bg-zinc-900 border border-zinc-800 text-brand-400 px-2.5 py-1 rounded-xl text-[11px] font-semibold flex items-center gap-1.5">
                                 <i class="fa-solid fa-circle-check text-emerald-400 text-[10px]"></i> ${f}
                             </span>
                         `).join('')}
@@ -664,13 +680,12 @@
                 </div>
             ` : '';
 
-            // Video Embeds
             let productVideosHTML = "";
             if (videoList.length > 0) {
                 const embeds = videoList.map(vUrl => {
                     const match = vUrl.match(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/);
                     if (match && match[2].length === 11) {
-                        return `<div class="rounded-2xl overflow-hidden border border-zinc-800"><iframe class="w-full h-48" src="https://www.youtube.com/embed/${match[2]}" frameborder="0" allowfullscreen></iframe></div>`;
+                        return `<div class="rounded-2xl overflow-hidden border border-zinc-800"><iframe class="w-full h-40 sm:h-48" src="https://www.youtube.com/embed/${match[2]}" frameborder="0" allowfullscreen></iframe></div>`;
                     }
                     return '';
                 }).join('');
@@ -686,20 +701,20 @@
 
             const modalContent = document.getElementById('product-detail-content');
             modalContent.innerHTML = `
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-                    <div class="space-y-4">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-start">
+                    <div class="space-y-3">
                         <div class="bg-zinc-950 rounded-2xl overflow-hidden border border-zinc-800 relative">
-                            <img id="modal-main-image-view" src="${imagesList[0]}" class="w-full h-80 sm:h-96 object-cover">
-                            <span class="absolute top-4 left-4 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] font-bold px-3 py-1 rounded-full"><i class="fa-solid fa-circle-check"></i> In Stock - Express Dispatch</span>
+                            <img id="modal-main-image-view" src="${imagesList[0]}" class="w-full h-64 sm:h-96 object-cover">
+                            <span class="absolute top-3 left-3 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[9px] sm:text-[10px] font-bold px-2.5 py-1 rounded-full"><i class="fa-solid fa-circle-check"></i> In Stock</span>
                         </div>
-                        <div class="flex flex-wrap gap-2">${galleryThumbnailsHTML}</div>
+                        <div class="flex gap-2 overflow-x-auto no-scrollbar py-1">${galleryThumbnailsHTML}</div>
                     </div>
 
-                    <div class="space-y-6">
+                    <div class="space-y-5">
                         <div>
                             <span class="text-brand-400 text-[10px] font-extrabold uppercase tracking-widest">${shoe.category}</span>
-                            <h2 class="text-2xl font-black text-white mt-1">${shoe.name}</h2>
-                            <p class="text-2xl font-black text-brand-400 mt-2">Rs. ${shoe.price.toLocaleString()}</p>
+                            <h2 class="text-xl sm:text-2xl font-black text-white mt-1">${shoe.name}</h2>
+                            <p class="text-xl sm:text-2xl font-black text-brand-400 mt-1">Rs. ${shoe.price.toLocaleString()}</p>
                         </div>
 
                         ${featuresHTML}
@@ -708,21 +723,21 @@
                             <label class="text-xs font-bold text-zinc-400 uppercase">Select Size (EU):</label>
                             <div class="flex flex-wrap gap-2">
                                 ${['40','41','42','43','44','45'].map(sz => `
-                                    <button onclick="selectProductSize('${sz}', this)" class="size-btn px-3.5 py-2 rounded-xl text-xs font-bold border ${sz === state.selectedSize ? 'border-brand-500 text-white bg-brand-500/20' : 'border-zinc-800 text-zinc-400 hover:border-zinc-700'}">${sz}</button>
+                                    <button onclick="selectProductSize('${sz}', this)" class="size-btn px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl text-xs font-bold border ${sz === state.selectedSize ? 'border-brand-500 text-white bg-brand-500/20' : 'border-zinc-800 text-zinc-400 hover:border-zinc-700'}">${sz}</button>
                                 `).join('')}
                             </div>
                         </div>
 
                         <div class="space-y-1">
                             <h4 class="text-xs font-bold text-zinc-400 uppercase">Description:</h4>
-                            <p class="text-xs text-zinc-300 leading-relaxed bg-zinc-950/80 p-3.5 rounded-xl border border-zinc-800">${shoe.description || 'Verified luxury footwear by Muhammad Tahir.'}</p>
+                            <p class="text-xs text-zinc-300 leading-relaxed bg-zinc-950/80 p-3 rounded-xl border border-zinc-800">${shoe.description || 'Verified luxury footwear by Muhammad Tahir.'}</p>
                         </div>
 
-                        <div class="grid grid-cols-2 gap-3">
-                            <button onclick="addToCart(${shoe.id}); closeProductModal();" class="bg-zinc-800 hover:bg-zinc-700 text-white font-bold py-3 rounded-xl transition text-xs flex items-center justify-center gap-2">
+                        <div class="grid grid-cols-2 gap-2.5">
+                            <button onclick="addToCart(${shoe.id}); closeProductModal();" class="bg-zinc-800 hover:bg-zinc-700 text-white font-bold py-3 rounded-xl transition text-xs flex items-center justify-center gap-1.5">
                                 <i class="fa-solid fa-cart-plus"></i> Add To Bag
                             </button>
-                            <button onclick="directBuyNow(${shoe.id}); closeProductModal();" class="bg-gradient-to-r from-brand-500 to-rose-600 hover:brightness-110 text-white font-bold py-3 rounded-xl transition text-xs flex items-center justify-center gap-2 shadow-lg shadow-brand-500/20">
+                            <button onclick="directBuyNow(${shoe.id}); closeProductModal();" class="bg-gradient-to-r from-brand-500 to-rose-600 hover:brightness-110 text-white font-bold py-3 rounded-xl transition text-xs flex items-center justify-center gap-1.5 shadow-lg shadow-brand-500/20">
                                 <i class="fa-solid fa-bolt"></i> Buy Now
                             </button>
                         </div>
@@ -731,15 +746,15 @@
                     </div>
                 </div>
 
-                <div class="border-t border-zinc-800/80 pt-6 space-y-6">
+                <div class="border-t border-zinc-800/80 pt-5 space-y-5">
                     <div class="flex justify-between items-center">
-                        <h3 class="text-base font-bold text-white flex items-center gap-2"><i class="fa-solid fa-comments text-brand-400"></i> Customer Reviews & Photos</h3>
-                        <span class="text-xs text-zinc-500">${reviewsList.length} verified feedback</span>
+                        <h3 class="text-sm sm:text-base font-bold text-white flex items-center gap-2"><i class="fa-solid fa-comments text-brand-400"></i> Reviews & Photos</h3>
+                        <span class="text-xs text-zinc-500">${reviewsList.length} feedback</span>
                     </div>
 
-                    <form onsubmit="postProductSpecificReview(event, ${shoe.id})" class="bg-zinc-950 border border-zinc-800 p-4 rounded-2xl space-y-3">
-                        <h4 class="text-xs font-bold text-white uppercase">Add Review for "${shoe.name}"</h4>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <form onsubmit="postProductSpecificReview(event, ${shoe.id})" class="bg-zinc-950 border border-zinc-800 p-3.5 rounded-2xl space-y-3">
+                        <h4 class="text-xs font-bold text-white uppercase">Add Review</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                             <input type="text" id="p-rev-name" required placeholder="Your Name" class="bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-brand-500 text-white">
                             <select id="p-rev-rating" class="bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-brand-500 text-amber-400 font-bold">
                                 <option value="5">⭐⭐⭐⭐⭐ (5/5 Stars)</option>
@@ -747,9 +762,9 @@
                                 <option value="3">⭐⭐⭐ (3/5 Stars)</option>
                             </select>
                         </div>
-                        <textarea id="p-rev-comment" required placeholder="Write your feedback regarding quality, fitting..." rows="2" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-brand-500 text-white"></textarea>
+                        <textarea id="p-rev-comment" required placeholder="Write feedback..." rows="2" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-brand-500 text-white"></textarea>
 
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                             <div>
                                 <label class="text-[10px] text-brand-400 font-bold uppercase"><i class="fa-solid fa-camera"></i> Shoe Photo:</label>
                                 <input type="file" accept="image/*" onchange="handleProductReviewPhoto(event)" class="w-full text-xs text-zinc-300 mt-1">
@@ -876,7 +891,7 @@
             saveCart();
             updateCartBadge();
             renderCartView();
-            if (showNotice) showToast(`Added ${item.name} (Size EU ${state.selectedSize}) to bag!`);
+            if (showNotice) showToast(`Added ${item.name} (EU ${state.selectedSize}) to bag!`);
         }
 
         function updateCartQty(id, size, delta) {
@@ -907,7 +922,7 @@
             if (!container) return;
 
             if (state.cart.length === 0) {
-                container.innerHTML = `<div class="bg-zinc-900/60 border border-zinc-800 p-8 rounded-2xl text-center text-zinc-500 text-xs font-semibold">Your shopping bag is empty. Add shoes to calculate price & delivery!</div>`;
+                container.innerHTML = `<div class="bg-zinc-900/60 border border-zinc-800 p-6 sm:p-8 rounded-2xl text-center text-zinc-500 text-xs font-semibold">Your shopping bag is empty.</div>`;
                 document.getElementById('cart-subtotal').innerText = `Rs. 0`;
                 document.getElementById('cart-delivery').innerText = `Rs. 0`;
                 document.getElementById('cart-total').innerText = `Rs. 0`;
@@ -920,19 +935,19 @@
                 subtotal += total;
                 const thumb = (item.images && item.images.length > 0) ? item.images[0] : item.image;
                 return `
-                    <div class="bg-zinc-900/70 border border-zinc-800/80 p-4 rounded-2xl flex items-center justify-between gap-4">
-                        <div class="flex items-center gap-4">
-                            <img src="${thumb}" class="w-14 h-14 object-cover rounded-xl bg-zinc-950">
+                    <div class="bg-zinc-900/70 border border-zinc-800/80 p-3 sm:p-4 rounded-2xl flex items-center justify-between gap-3">
+                        <div class="flex items-center gap-3">
+                            <img src="${thumb}" class="w-12 h-12 sm:w-14 sm:h-14 object-cover rounded-xl bg-zinc-950 shrink-0">
                             <div>
-                                <h4 class="font-bold text-white text-xs">${item.name}</h4>
+                                <h4 class="font-bold text-white text-xs line-clamp-1">${item.name}</h4>
                                 <p class="text-[10px] text-zinc-400">Size: <span class="text-brand-400 font-bold">EU ${item.size}</span></p>
                                 <p class="text-xs text-brand-400 font-mono font-bold mt-0.5">Rs. ${item.price.toLocaleString()}</p>
                             </div>
                         </div>
-                        <div class="flex items-center gap-2">
-                            <button onclick="updateCartQty(${item.id}, '${item.size}', -1)" class="w-7 h-7 bg-zinc-800 rounded-lg text-zinc-300 font-bold hover:bg-zinc-700 text-xs">-</button>
-                            <span class="text-xs font-bold text-white px-2">${item.qty}</span>
-                            <button onclick="updateCartQty(${item.id}, '${item.size}', 1)" class="w-7 h-7 bg-zinc-800 rounded-lg text-zinc-300 font-bold hover:bg-zinc-700 text-xs">+</button>
+                        <div class="flex items-center gap-1.5 shrink-0">
+                            <button onclick="updateCartQty(${item.id}, '${item.size}', -1)" class="w-6 h-6 sm:w-7 sm:h-7 bg-zinc-800 rounded-lg text-zinc-300 font-bold hover:bg-zinc-700 text-xs">-</button>
+                            <span class="text-xs font-bold text-white px-1">${item.qty}</span>
+                            <button onclick="updateCartQty(${item.id}, '${item.size}', 1)" class="w-6 h-6 sm:w-7 sm:h-7 bg-zinc-800 rounded-lg text-zinc-300 font-bold hover:bg-zinc-700 text-xs">+</button>
                         </div>
                     </div>
                 `;
@@ -1042,16 +1057,16 @@
                 const thumb = (s.images && s.images.length > 0) ? s.images[0] : s.image;
                 return `
                     <div class="flex justify-between items-center bg-zinc-950 p-2.5 rounded-xl border border-zinc-800">
-                        <div class="flex items-center gap-3">
-                            <img src="${thumb}" class="w-8 h-8 object-cover rounded-lg">
+                        <div class="flex items-center gap-2.5">
+                            <img src="${thumb}" class="w-8 h-8 object-cover rounded-lg shrink-0">
                             <div>
-                                <p class="font-bold text-xs text-white">${s.name}</p>
+                                <p class="font-bold text-xs text-white line-clamp-1">${s.name}</p>
                                 <p class="text-[10px] text-brand-400 font-mono">Rs. ${s.price.toLocaleString()} | ${s.category}</p>
                             </div>
                         </div>
-                        <div class="flex items-center gap-2">
-                            <button onclick="startEditShoe(${s.id})" class="text-[10px] bg-zinc-800 text-brand-400 px-2.5 py-1 rounded-lg font-bold">Edit</button>
-                            <button onclick="deleteShoeModel(${s.id})" class="text-[10px] bg-rose-500/10 text-rose-400 px-2.5 py-1 rounded-lg font-bold">Delete</button>
+                        <div class="flex items-center gap-1.5 shrink-0">
+                            <button onclick="startEditShoe(${s.id})" class="text-[10px] bg-zinc-800 text-brand-400 px-2 py-1 rounded-lg font-bold">Edit</button>
+                            <button onclick="deleteShoeModel(${s.id})" class="text-[10px] bg-rose-500/10 text-rose-400 px-2 py-1 rounded-lg font-bold">Delete</button>
                         </div>
                     </div>
                 `;
@@ -1066,11 +1081,9 @@
             const category = document.getElementById('form-cat').value;
             const description = document.getElementById('form-desc').value;
 
-            // Features parsing
             const featuresInput = document.getElementById('form-features').value;
             const features = featuresInput ? featuresInput.split(',').map(f => f.trim()).filter(Boolean) : [];
 
-            // Images parsing
             let images = [...state.stagedImages];
             const rawUrls = document.getElementById('form-urls').value;
             if (rawUrls) {
@@ -1083,7 +1096,6 @@
                 return;
             }
 
-            // Videos parsing
             const rawVideos = document.getElementById('form-video-urls').value;
             const videos = rawVideos ? rawVideos.split(',').map(v => v.trim()).filter(Boolean) : [];
 
